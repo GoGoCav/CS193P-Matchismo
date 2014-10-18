@@ -18,19 +18,25 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardsButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *matchModeControl;
-// save and show the match results
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel; // save and show the match results
+@property (strong, nonatomic) NSMutableArray *matchHistory; // for NSString. save 4 recently match results
+@property (weak, nonatomic) IBOutlet UISlider *slider;
 
 @end
 
 @implementation ViewController
-
 
 - (CardMatchingGame *)game
 {
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardsButtons count]
                                                           usingDeck:[self createDeck]];
     return _game;
+}
+
+- (NSMutableArray *)matchHistory {
+    if (!_matchHistory) _matchHistory = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];// only record last 5 history
+    //if (!_matchHistory) _matchHistory = (NSMutableArray *)@[@"",@"",@"",@"",@""];
+    return _matchHistory;
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender {
@@ -77,7 +83,33 @@
         }
     }
     
-    [self.descriptionLabel setText:description];
+    // record match history
+    [self.matchHistory addObject:description];
+    [self.matchHistory removeObjectAtIndex:0];
+    // show the latest match description
+    [self.slider setValue: 4];
+    
+    [self updateDescription];
+    
+    //[self.descriptionLabel setText:description];
+    
+}
+
+- (IBAction)sliderValueChanged:(UISlider *)sender {
+    [self updateDescription];
+}
+
+-(void)updateDescription {
+    NSUInteger index = ceil(self.slider.value);
+    if (self.matchHistory) {
+        NSString *string = [self.matchHistory objectAtIndex:index];
+        [self.descriptionLabel setText:string];
+        if (index == 4) {
+            self.descriptionLabel.alpha = 1;
+        } else {
+            self.descriptionLabel.alpha = 0.5;
+        }
+    }
 }
 
 - (IBAction)restartButton:(UIButton *)sender {
@@ -87,6 +119,7 @@
 - (void)restart
 {
     self.game = nil;
+    self.matchHistory = nil;
     self.matchModeControl.enabled = YES;
     [self updateMatchNumber];
     [self updateUI];
