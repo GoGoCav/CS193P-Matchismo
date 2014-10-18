@@ -9,8 +9,8 @@ Written in XCode 6.0.1 for iOS7.0+.
 
 (Unfortunately I didn't make branches nor tags before Assignment 2 Required Tasks 6.)
 
-- #####[Assignment 2 - Required Tasks](https://github.com/GoGoCav/CS193P-Matchismo/tree/Assignment2RequiredTasks)
-	- [Required Task 6](https://github.com/GoGoCav/CS193P-Matchismo/tree/Assignment2RequiredTasks)
+- [ASSIGNMENT 2 - Required Tasks](https://github.com/GoGoCav/CS193P-Matchismo/tree/Assignment2RequiredTasks)
+ - [Required Task 6](https://github.com/GoGoCav/CS193P-Matchismo/tree/Assignment2RequiredTasks)
 
 
 
