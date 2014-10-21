@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 
 @interface ViewController ()
@@ -26,6 +25,19 @@
 
 @implementation ViewController
 
+#pragma mark - initial
+
+- (Deck *)createDeck // abstract
+{
+    return nil;
+}
+
+- (Deck *)deck
+{
+    if (!_deck) _deck = [self createDeck];
+    return _deck;
+}
+
 - (CardMatchingGame *)game
 {
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardsButtons count]
@@ -39,6 +51,19 @@
     return _matchHistory;
 }
 
+- (NSString *)titleForCard:(Card *)card
+{
+    return card.isChosen ? card.contents : @"";
+}
+
+- (UIImage *)backgroundImageForCard:(Card *)card
+{
+    return [UIImage imageNamed:(card.isChosen ? @"cardfront" : @"cardback")];
+}
+
+
+
+#pragma mark - actions
 - (IBAction)touchCardButton:(UIButton *)sender {
     self.matchModeControl.enabled = NO;
     
@@ -89,17 +114,17 @@
     // show the latest match description
     [self.slider setValue: 4];
     
-    [self updateDescription];
+    [self updateHistoryDescription];
     
     //[self.descriptionLabel setText:description];
     
 }
 
 - (IBAction)sliderValueChanged:(UISlider *)sender {
-    [self updateDescription];
+    [self updateHistoryDescription];
 }
 
--(void)updateDescription {
+-(void)updateHistoryDescription {
     NSUInteger index = ceil(self.slider.value);
     if (self.matchHistory) {
         NSString *string = [self.matchHistory objectAtIndex:index];
@@ -133,25 +158,6 @@
     self.game.matchNumber = (self.matchModeControl.selectedSegmentIndex == 0 ? 2 : 3);
 }
 
-- (NSString *)titleForCard:(Card *)card
-{
-    return card.isChosen ? card.contents : @"";
-}
 
-- (UIImage *)backgroundImageForCard:(Card *)card
-{
-    return [UIImage imageNamed:(card.isChosen ? @"cardfront" : @"cardback")];
-}
-
-- (Deck *)createDeck
-{
-    return [[PlayingCardDeck alloc] init];
-}
-
-- (Deck *)deck
-{
-    if (!_deck) _deck = [self createDeck];
-    return _deck;
-}
 
 @end
