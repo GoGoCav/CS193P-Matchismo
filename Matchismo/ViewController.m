@@ -16,7 +16,6 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardsButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *matchModeControl;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel; // save and show the match results
 @property (strong, nonatomic) NSMutableArray *matchHistory; // for NSString. save 4 recently match results
 @property (weak, nonatomic) IBOutlet UISlider *slider;
@@ -26,6 +25,14 @@
 @implementation ViewController
 
 #pragma mark - initial
+
+- (NSUInteger)matchNumber
+{
+    if (!_matchNumber) {
+        _matchNumber = 2; // default: 2-card matching
+    }
+    return _matchNumber;
+}
 
 - (Deck *)createDeck // abstract
 {
@@ -61,15 +68,11 @@
     return [UIImage imageNamed:(card.isChosen ? @"cardfront" : @"cardback")];
 }
 
-
-
 #pragma mark - actions
 - (IBAction)touchCardButton:(UIButton *)sender {
-    self.matchModeControl.enabled = NO;
-    
     NSUInteger index = [self.cardsButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:index];
-    
+    NSLog(@"choose the %ld card", index);
     [self updateUI];
 }
 
@@ -145,17 +148,13 @@
 {
     self.game = nil;
     self.matchHistory = nil;
-    self.matchModeControl.enabled = YES;
-    [self updateMatchNumber];
+    [self resetMatchNumber];
     [self updateUI];
 }
 
-- (IBAction)modeControl:(UISegmentedControl *)sender {
-    [self updateMatchNumber];
-}
-
-- (void)updateMatchNumber {
-    self.game.matchNumber = (self.matchModeControl.selectedSegmentIndex == 0 ? 2 : 3);
+- (void)resetMatchNumber
+{
+    self.game.matchNumber = self.matchNumber;
 }
 
 

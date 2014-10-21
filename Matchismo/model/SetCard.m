@@ -84,8 +84,16 @@
 }
 
 - (NSString *)contents
-{
-    return nil;
+{ 
+    return @"";
 }
+
+
+
+
+
+
+
+
 
 @end

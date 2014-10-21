@@ -11,7 +11,7 @@
 #import "Deck.h"
 
 @interface ViewController : UIViewController
-
+@property (nonatomic) NSUInteger matchNumber;
 // protected
 // for subclasses
 - (Deck *)createDeck; // abstract

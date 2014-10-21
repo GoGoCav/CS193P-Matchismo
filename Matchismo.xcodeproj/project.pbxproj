@@ -108,14 +108,14 @@
 		BDB0589719EE560300657194 /* Matchismo */ = {
 			isa = PBXGroup;
 			children = (
+				BDB058A219EE560300657194 /* Main.storyboard */,
+				BDB058A719EE560300657194 /* LaunchScreen.xib */,
 				BDB0589F19EE560300657194 /* ViewController.h */,
 				BDB058A019EE560300657194 /* ViewController.m */,
 				BDFC018419F62DCF0003C16D /* PlayingCardGameViewController.h */,
 				BDFC018519F62DCF0003C16D /* PlayingCardGameViewController.m */,
-				BDB058A219EE560300657194 /* Main.storyboard */,
 				BDFC018D19F64BCB0003C16D /* SetCardGameViewController.h */,
 				BDFC018E19F64BCB0003C16D /* SetCardGameViewController.m */,
-				BDB058A719EE560300657194 /* LaunchScreen.xib */,
 				BDB058C119EE626100657194 /* Model */,
 				BDB058A519EE560300657194 /* Images.xcassets */,
 				BDB0589819EE560300657194 /* Supporting Files */,
@@ -154,6 +154,8 @@
 		BDB058C119EE626100657194 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BDB058CB19EEB56D00657194 /* CardMatchingGame.h */,
+				BDB058CC19EEB56D00657194 /* CardMatchingGame.m */,
 				BDB058BE19EE625900657194 /* Card.h */,
 				BDB058BF19EE625900657194 /* Card.m */,
 				BDB058C519EE739B00657194 /* Deck.h */,
@@ -162,8 +164,6 @@
 				BDB058C319EE64C700657194 /* PlayingCard.m */,
 				BDB058C819EE99EF00657194 /* PlayingCardDeck.h */,
 				BDB058C919EE99EF00657194 /* PlayingCardDeck.m */,
-				BDB058CB19EEB56D00657194 /* CardMatchingGame.h */,
-				BDB058CC19EEB56D00657194 /* CardMatchingGame.m */,
 				BDFC018719F62FED0003C16D /* SetCard.h */,
 				BDFC018819F62FED0003C16D /* SetCard.m */,
 				BDFC018A19F6303A0003C16D /* SetCardDeck.h */,

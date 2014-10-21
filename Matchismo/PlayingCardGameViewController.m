@@ -30,4 +30,13 @@
     return [[PlayingCardDeck alloc] init];
 }
 
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.matchNumber = 2;
+    }
+    return self;
+}
 @end

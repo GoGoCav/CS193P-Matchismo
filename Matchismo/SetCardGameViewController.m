@@ -20,6 +20,16 @@
     return [[SetCardDeck alloc] init];
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    
+    if (self) {
+        self.matchNumber = 3;
+    }
+    return self;
+}
+
 /*
 #pragma mark - Navigation
 
