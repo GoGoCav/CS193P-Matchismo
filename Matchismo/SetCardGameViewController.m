@@ -7,6 +7,7 @@
 //
 
 #import "SetCardGameViewController.h"
+#import "SetCardDeck.h"
 
 @interface SetCardGameViewController ()
 
@@ -14,14 +15,9 @@
 
 @implementation SetCardGameViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (Deck *)createDeck
+{
+    return [[SetCardDeck alloc] init];
 }
 
 /*
