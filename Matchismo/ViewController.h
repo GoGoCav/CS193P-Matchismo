@@ -9,12 +9,18 @@
 
 #import <UIKit/UIKit.h>
 #import "Deck.h"
+#import "CardMatchingGame.h"
 
 @interface ViewController : UIViewController
-@property (nonatomic) NSUInteger matchNumber;
+@property (strong, nonatomic) CardMatchingGame *game;
+
 // protected
 // for subclasses
 - (Deck *)createDeck; // abstract
 
+- (NSAttributedString *)titleForCard:(Card *)card;
+- (NSAttributedString *)titleForChosenCard:(Card *)card;
+
+- (void)updateUI;
 @end
 

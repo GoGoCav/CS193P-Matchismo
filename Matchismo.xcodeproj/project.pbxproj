@@ -110,6 +110,7 @@
 			children = (
 				BDB058A219EE560300657194 /* Main.storyboard */,
 				BDB058A719EE560300657194 /* LaunchScreen.xib */,
+				BDB058A519EE560300657194 /* Images.xcassets */,
 				BDB0589F19EE560300657194 /* ViewController.h */,
 				BDB058A019EE560300657194 /* ViewController.m */,
 				BDFC018419F62DCF0003C16D /* PlayingCardGameViewController.h */,
@@ -117,7 +118,6 @@
 				BDFC018D19F64BCB0003C16D /* SetCardGameViewController.h */,
 				BDFC018E19F64BCB0003C16D /* SetCardGameViewController.m */,
 				BDB058C119EE626100657194 /* Model */,
-				BDB058A519EE560300657194 /* Images.xcassets */,
 				BDB0589819EE560300657194 /* Supporting Files */,
 			);
 			path = Matchismo;

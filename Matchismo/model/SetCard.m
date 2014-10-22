@@ -79,7 +79,30 @@
 - (int)match:(NSArray *)otherCards
 {
     int score = 0;
+    BOOL match = TRUE;
     
+    if ([otherCards count] > 0) {
+        for (SetCard *otherCard in otherCards) {
+            if ([self.symbol isEqualToString:otherCard.symbol] ||
+                [self.color isEqualToString:otherCard.color] ||
+                [self.shading isEqualToString:otherCard.shading] ||
+                (self.number == otherCard.number)) {
+                match = FALSE;
+                break;
+            } else if ([otherCards count] > 1){
+                Card *firstCard = [otherCards firstObject];
+                otherCards = [otherCards subarrayWithRange:NSMakeRange(1, [otherCards count] -1)];
+                score += [firstCard match:otherCards];
+            }
+        }
+        
+        if (match) {
+            score += 4;
+        } else {
+            score -= 2;
+        }
+    }
+
     return score;
 }
 
@@ -87,13 +110,5 @@
 { 
     return @"";
 }
-
-
-
-
-
-
-
-
 
 @end

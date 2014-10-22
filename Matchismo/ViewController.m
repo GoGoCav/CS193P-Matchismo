@@ -13,27 +13,17 @@
 
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) Deck *deck;
-@property (strong, nonatomic) CardMatchingGame *game;
+
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardsButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel; // save and show the match results
-@property (strong, nonatomic) NSMutableArray *matchHistory; // for NSString. save 4 recently match results
-@property (weak, nonatomic) IBOutlet UISlider *slider;
+@property (strong, nonatomic) NSMutableArray *matchHistory; // for NSAttributeString. save 4 recently match results
 
 @end
 
 @implementation ViewController
 
 #pragma mark - initial
-
-- (NSUInteger)matchNumber
-{
-    if (!_matchNumber) {
-        _matchNumber = 2; // default: 2-card matching
-    }
-    return _matchNumber;
-}
-
 - (Deck *)createDeck // abstract
 {
     return nil;
@@ -53,14 +43,35 @@
 }
 
 - (NSMutableArray *)matchHistory {
-    if (!_matchHistory) _matchHistory = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"", nil];// only record last 5 history
-    //if (!_matchHistory) _matchHistory = (NSMutableArray *)@[@"",@"",@"",@"",@""];
+    if (!_matchHistory) _matchHistory = [[NSMutableArray alloc] init];
     return _matchHistory;
 }
 
+#pragma mark - actions
+/*
 - (NSString *)titleForCard:(Card *)card
 {
     return card.isChosen ? card.contents : @"";
+}
+*/
+- (NSAttributedString *)titleForCard:(Card *)card
+{
+    NSAttributedString *title = [self titleForChosenCard:card];
+    if (!card.isChosen) {
+        title = [[NSAttributedString alloc] initWithString:@"" attributes:[title attributesAtIndex:0 effectiveRange:NULL]];
+    }
+    
+    return title;
+}
+
+- (NSAttributedString *)titleForChosenCard:(Card *)card
+{
+    NSString *contents = card.contents;
+    NSDictionary *attribute = @{ NSForegroundColorAttributeName: [UIColor blackColor] };
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:contents
+                                                                attributes:attribute];
+    
+    return title;
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card
@@ -68,11 +79,9 @@
     return [UIImage imageNamed:(card.isChosen ? @"cardfront" : @"cardback")];
 }
 
-#pragma mark - actions
 - (IBAction)touchCardButton:(UIButton *)sender {
     NSUInteger index = [self.cardsButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:index];
-    NSLog(@"choose the %ld card", index);
     [self updateUI];
 }
 
@@ -81,7 +90,9 @@
         NSUInteger index = [self.cardsButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:index];
         
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        //[cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        [cardButton setAttributedTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        
         cardButton.titleLabel.font = [UIFont systemFontOfSize:14];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
@@ -90,54 +101,38 @@
     // score
     self.scoreLabel.text = [NSString stringWithFormat:@"Score:%ld", self.game.score];
     // describe
-    NSMutableArray *chosenCardsContents = [NSMutableArray array];
-    NSString *cardContents = @"";
-    NSString *description = [NSString stringWithFormat:@""];
+    NSMutableAttributedString *chosenCardsContents = [[NSMutableAttributedString alloc] init];
+    NSMutableAttributedString *description = [[NSMutableAttributedString alloc] init];
     
     if ([self.game.chosenCards count] > 0) {
         for (Card *chosenCard in self.game.chosenCards) {
-            [chosenCardsContents addObject:chosenCard.contents];
+            //NSLog(@"new chosen card is %@", [[self titleForChosenCard:chosenCard] string]);
+            [chosenCardsContents appendAttributedString:[self titleForChosenCard:chosenCard]];
         }
-        cardContents = [chosenCardsContents componentsJoinedByString:@" "];
     }
     
     if (self.game.lastScore > 0) {
-        description = [NSString stringWithFormat:@"%@ ✔️ +%ld", cardContents, self.game.lastScore];
+        NSAttributedString *appendingString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"✔️ +%ld", self.game.lastScore]];
+        [description appendAttributedString:chosenCardsContents];
+        [description appendAttributedString:appendingString];
     } else if (self.game.lastScore < 0){
-        description = [NSString stringWithFormat:@"%@ ❌ %ld", cardContents, self.game.lastScore];
+        NSAttributedString *appendingString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"❌ %ld", self.game.lastScore]];
+        [description appendAttributedString:chosenCardsContents];
+        [description appendAttributedString:appendingString];
     } else {
         if ([self.game.chosenCards count] > 0) {
-            description = [NSString stringWithFormat:@"%@", cardContents];
+            
+            description = chosenCardsContents;
         }
     }
     
     // record match history
-    [self.matchHistory addObject:description];
-    [self.matchHistory removeObjectAtIndex:0];
-    // show the latest match description
-    [self.slider setValue: 4];
-    
-    [self updateHistoryDescription];
-    
-    //[self.descriptionLabel setText:description];
-    
-}
-
-- (IBAction)sliderValueChanged:(UISlider *)sender {
-    [self updateHistoryDescription];
-}
-
--(void)updateHistoryDescription {
-    NSUInteger index = ceil(self.slider.value);
-    if (self.matchHistory) {
-        NSString *string = [self.matchHistory objectAtIndex:index];
-        [self.descriptionLabel setText:string];
-        if (index == 4) {
-            self.descriptionLabel.alpha = 1;
-        } else {
-            self.descriptionLabel.alpha = 0.5;
-        }
+    if ([description string].length > 0) {
+        [self.matchHistory addObject:description];
     }
+    // show the latest match description
+    
+    [self.descriptionLabel setAttributedText:description];
 }
 
 - (IBAction)restartButton:(UIButton *)sender {
@@ -148,14 +143,9 @@
 {
     self.game = nil;
     self.matchHistory = nil;
-    [self resetMatchNumber];
     [self updateUI];
 }
 
-- (void)resetMatchNumber
-{
-    self.game.matchNumber = self.matchNumber;
-}
 
 
 

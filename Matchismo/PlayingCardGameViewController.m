@@ -30,13 +30,10 @@
     return [[PlayingCardDeck alloc] init];
 }
 
-
-- (instancetype)init
+- (void)viewDidLoad
 {
-    self = [super init];
-    if (self) {
-        self.matchNumber = 2;
-    }
-    return self;
+    [super viewDidLoad];
+    self.game.matchNumber = 2;
 }
+
 @end
