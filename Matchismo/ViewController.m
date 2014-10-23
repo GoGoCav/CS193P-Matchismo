@@ -8,17 +8,16 @@
 
 #import "ViewController.h"
 #import "CardMatchingGame.h"
+#import "HistoryViewController.h"
 
 @interface ViewController ()
 
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) Deck *deck;
-
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardsButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel; // save and show the match results
-@property (strong, nonatomic) NSMutableArray *matchHistory; // for NSAttributeString. save 4 recently match results
-
+@property (strong, nonatomic, readwrite) NSMutableArray *matchHistory; // for NSAttributeString
 @end
 
 @implementation ViewController
@@ -112,11 +111,11 @@
     }
     
     if (self.game.lastScore > 0) {
-        NSAttributedString *appendingString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"✔️ +%ld", self.game.lastScore]];
+        NSAttributedString *appendingString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"matched! Get +%ld points!", self.game.lastScore]];
         [description appendAttributedString:chosenCardsContents];
         [description appendAttributedString:appendingString];
     } else if (self.game.lastScore < 0){
-        NSAttributedString *appendingString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"❌ %ld", self.game.lastScore]];
+        NSAttributedString *appendingString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"don't match. Get %ld points.", self.game.lastScore]];
         [description appendAttributedString:chosenCardsContents];
         [description appendAttributedString:appendingString];
     } else {
@@ -147,6 +146,25 @@
 }
 
 
-
+#pragma mark - Navigation
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.destinationViewController isKindOfClass:[HistoryViewController class]]) {
+        HistoryViewController *historyVC = (HistoryViewController *)segue.destinationViewController;
+        NSMutableAttributedString *historyString = [[NSMutableAttributedString alloc] init];
+        
+        int i = 1;
+        for (NSAttributedString *string in self.matchHistory) {
+            [historyString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d : ", i++]]];
+            [historyString appendAttributedString:string];
+            [historyString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
+        }
+        
+        historyVC.historyString = historyString;
+    }
+}
 
 @end

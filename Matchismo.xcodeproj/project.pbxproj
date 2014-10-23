@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD8E08CD19F9344B002D6C70 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8E08CC19F9344B002D6C70 /* HistoryViewController.m */; };
 		BDB0589B19EE560300657194 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB0589A19EE560300657194 /* main.m */; };
 		BDB0589E19EE560300657194 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB0589D19EE560300657194 /* AppDelegate.m */; };
 		BDB058A119EE560300657194 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDB058A019EE560300657194 /* ViewController.m */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD8E08CB19F9344B002D6C70 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		BD8E08CC19F9344B002D6C70 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		BDB0589519EE560300657194 /* Matchismo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matchismo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDB0589919EE560300657194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDB0589A19EE560300657194 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 				BDFC018519F62DCF0003C16D /* PlayingCardGameViewController.m */,
 				BDFC018D19F64BCB0003C16D /* SetCardGameViewController.h */,
 				BDFC018E19F64BCB0003C16D /* SetCardGameViewController.m */,
+				BD8E08CB19F9344B002D6C70 /* HistoryViewController.h */,
+				BD8E08CC19F9344B002D6C70 /* HistoryViewController.m */,
 				BDB058C119EE626100657194 /* Model */,
 				BDB0589819EE560300657194 /* Supporting Files */,
 			);
@@ -278,6 +283,7 @@
 				BDFC018619F62DCF0003C16D /* PlayingCardGameViewController.m in Sources */,
 				BDFC018C19F6303A0003C16D /* SetCardDeck.m in Sources */,
 				BDB0589E19EE560300657194 /* AppDelegate.m in Sources */,
+				BD8E08CD19F9344B002D6C70 /* HistoryViewController.m in Sources */,
 				BDFC018919F62FED0003C16D /* SetCard.m in Sources */,
 				BDB0589B19EE560300657194 /* main.m in Sources */,
 				BDB058CD19EEB56D00657194 /* CardMatchingGame.m in Sources */,
