@@ -428,7 +428,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLa-TK-3nJ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -851,7 +850,7 @@
         <scene sceneID="53N-x9-n3o">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RNV-sq-W48" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Playing Card" id="JCd-5G-omQ"/>
+                    <tabBarItem key="tabBarItem" title="Playing Card" image="tab_bar_playingcard" id="JCd-5G-omQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="giG-Fe-wor">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -870,7 +869,9 @@
         <scene sceneID="llN-lj-AEI">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wmt-vJ-kMB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Set Card" id="j41-6L-Xu0"/>
+                    <tabBarItem key="tabBarItem" title="Set Card" image="tab_bar_setcard" id="j41-6L-Xu0">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kDG-dw-9RD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -889,6 +890,8 @@
     <resources>
         <image name="cardback" width="64" height="96"/>
         <image name="setcard" width="50" height="50"/>
+        <image name="tab_bar_playingcard" width="30" height="30"/>
+        <image name="tab_bar_setcard" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -896,6 +899,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="jt5-yI-coT"/>
+        <segue reference="Rtw-MQ-gXI"/>
     </inferredMetricsTieBreakers>
 </document>
